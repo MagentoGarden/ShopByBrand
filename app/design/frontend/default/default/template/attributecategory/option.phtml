@@ -1,0 +1,26 @@
+<?php
+/**
+ * MagentoGarden
+ *
+ * @category    design
+ * @package     magentogarden_attributecategory
+ * @copyright   Copyright (c) 2012 MagentoGarden Inc. (http://www.magentogarden.com)
+ * @version		1.0
+ * @author		MagentoGarden (coder@magentogarden.com)
+ */
+?>
+
+
+<?php
+	$_attribute_id = $this->getRequest()->getParam('id');
+   	$_attribute_code = $this->getRequest()->getParam('code');
+    $_option_id = $this->getRequest()->getParam('option');
+?>
+
+<div class="page-title category-title">
+    <h1><?php echo $this->getTitle(); ?></h1>
+</div>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php echo $this->getProductListHtml() ?>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config>
+	<menu>
+		<magentogarden>
+			<title>MagentoGarden</title>
+			<sort_order>200</sort_order>
+			<children>
+				<attributecategory translate="title" module="attributecategory">
+					<title>Shop by Brand</title>
+					<action>adminhtml/mgac/manage</action>
+					<sort_order>25</sort_order>
+				</attributecategory>
+			</children>
+		</magentogarden>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<magentogarden_attributecategory translate="title" module="attributecategory">
+										<title>Config MagentoGarden Shop by Brand</title>
+										<sort_order>50</sort_order>
+									</magentogarden_attributecategory>
+								</children>
+							</config>
+						</children>
+					</system>
+					<magentogarden translate="title" module="attributecategory">
+						<title>MagentoGarden</title>
+						<sort_order>100</sort_order>
+						<children>
+							<attributecategory translate="title">
+								<title>MagentoGarden Shop by Brand</title>
+							</attributecategory>
+						</children>
+					</magentogarden>
+					
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

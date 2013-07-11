@@ -1,0 +1,188 @@
+<?php
+/**
+ * MagentoGarden
+ *
+ * @category    design
+ * @package     magentogarden_attributecategory
+ * @copyright   Copyright (c) 2012 MagentoGarden Inc. (http://www.magentogarden.com)
+ * @version		1.0
+ * @author		MagentoGarden (coder@magentogarden.com)
+ */
+?>
+
+<?php
+	$_attributes = $this->getAttributes();
+?>
+
+<div class="mg-container">
+	<div class="mg-title">
+		<h3><?php echo $this->__('MagentoGarden Shop by Brand')?></h3>
+	</div>
+	<div class="page:main-container">
+		<div class="columns">
+			<div id="page:left" class="mg-left side-col">
+				<ul class="mg-attr-list tabs config-tabs">
+				<?php foreach($_attributes as $_code=>$_attribute): ?>
+					<li class="mg-attr-item label">
+						<a href="#" rel="id:<?php echo $_attribute['attribute_id'];?>;code:<?php echo $_code; ?>">
+							<span><?php echo $_attribute['frontend_label']; ?></span>
+						</a>
+					</li>
+					<p class="mg-attr-item-des">
+						<label>Id</label>: <?php echo $_attribute['attribute_id'];?><br />
+						<label>Code</label>: <?php echo $_code; ?><br />
+						<label>Frontend</label>: <a href="<?php echo $this->getFrontendUrl($_attribute['attribute_id'], $_code); ?>">Go</a>
+					</p>
+		
+				<?php endforeach; ?>
+				</ul>
+			</div>
+			<div id="content" class="mg-content main-col">
+				<div class="main-col-inner">
+					
+				</div>
+			</div>
+		</div>	
+	</div>
+	
+</div>
+
+<script>
+	jQuery(function() {
+		function mask(msg) {
+			jQuery('body').mask(msg);
+		}
+		
+		function unmask() {
+			jQuery('body').unmask();	
+		}
+		
+		jQuery('.mg-attr-item > a').click(function(){
+			jQuery('.mg-attr-item > a').removeClass('active');
+			jQuery(this).addClass('active');
+			var rel = jQuery(this).attr('rel');
+			var property = rel.split(';');
+			for (var i = 0; i < property.length; i++) {
+				var val = property[i].split(':');
+				if (val[0] == 'id') id = val[1];
+				if (val[0] == 'code') code = val[1];
+			}
+			getOptions(id, code);
+			return false;
+			
+			function getOptions(id, code) {
+				var url = '<?php echo $this->getOptionsUrl(); ?>';
+				var form_key = '<?php echo $this->getFormKey(); ?>';
+				url = url + 'id/' + id + '/code/' + code;
+				mask('Loading ...');
+				jQuery.post(
+					url,
+					{
+						form_key: form_key
+					},
+					function(response) {
+						unmask();
+						response = jQuery.parseJSON(response);
+						jQuery('.mg-content .main-col-inner').html("");
+						jQuery('.mg-content .main-col-inner').append('<input class="mg-enabled" type="checkbox" rel="'+id+'"/> <span>Enable Shop by Brand for this Attribute</span>');
+						jQuery('.mg-content .main-col-inner').append('<div class="clear"></div>');
+						
+						if (response.enabled) {
+							jQuery('.mg-enabled').attr('checked', 'checked');
+						}
+						
+						var images = response.images;
+						for (var key in images) {
+							if (key == "") continue;
+							var image = images[key];
+							var classname = 'mg-option-'+key;
+							var checked = '';
+							if (image.enabled == 1) {
+								checked = 'checked="checked"';
+							}
+							jQuery('.mg-content .main-col-inner').append('<div class="mg-option '+classname+'"><h1></h1><div class="mg-img-box"><img class="" src="" /></div><input type="checkbox" '+checked+' class="mg-attribute-enable" rel="id:'+id+';option:'+key+';code:'+code+';"/>Set as feature<br /><h2><a title="Click to upload image" class="uploader" href="#" rel="id:'+id+';option:'+key+';code:'+code+';">Upload Image</a></h2></div>');
+							jQuery('.'+classname).find('h1').html(image.label);
+							var imageUrl = null;
+							if (image.image == null) {
+								imageUrl = '<?php echo $this->getPlaceHolder(); ?>';
+							} else {
+								imageUrl = image.image;
+							}
+							jQuery('.'+classname).find('img').attr('src', imageUrl);
+						}
+
+						// bind function
+						jQuery('.mg-enabled').click(function() {
+							var url = '<?php echo $this->getEnableUrl();?>';
+							var form_key = '<?php echo $this->getFormKey(); ?>';
+							mask('Updating ...');
+							jQuery.post(
+								url,
+								{
+									form_key: form_key,
+									id: jQuery(this).attr('rel')
+								},
+								function (response) {
+									unmask();
+								}
+							);	
+						});
+
+						jQuery('.mg-attribute-enable').click(function() {
+							var variable = splitRel(jQuery(this).attr('rel'));
+							var url = '<?php echo $this->getFeatureEnableUrl(); ?>';
+							var form_key = '<?php echo $this->getFormKey(); ?>';
+							mask('Updating ...');
+							jQuery.post(
+								url,
+								{
+									form_key: form_key,
+									id: variable.id,
+									option: variable.option
+								},
+								function (response) {
+									unmask();
+								}
+							);
+						});
+
+						function splitRel(rel) {
+							var property = rel.split(";");
+							var data = new Object();
+							for (var i = 0; i < property.length; i++) {
+								var val = property[i].split(":");
+								data[val[0]] = val[1];
+							}
+							return data;
+						}
+
+						jQuery('a.uploader').each(function() {
+							var btnUpload = jQuery(this);
+							var form_key = '<?php echo $this->getFormKey(); ?>';
+							var variable = splitRel(jQuery(this).attr('rel'));
+							var url = '<?php echo $this->getUploadImageUrl(); ?>';
+							url = url + "id/" + variable.id + "/option/" + variable.option + "/code/" + variable.code; 
+							
+							var name = "uploader-"+variable.id+"-"+variable.option;
+							new AjaxUpload(btnUpload, 
+									{
+										action: url,
+										name: name,
+										key: form_key,
+										onSubmit: function(file, ext) {
+											mask('Uploading ... ');
+										},
+										onComplete: function(file, response) {
+											unmask();
+											response = jQuery.parseJSON(response);
+											var classname = 'mg-option-'+variable.option;
+											jQuery('.'+classname).find('img').attr('src', response.image);
+										}
+									});
+						});
+					}
+				);
+			}
+		});		
+	});
+</script>

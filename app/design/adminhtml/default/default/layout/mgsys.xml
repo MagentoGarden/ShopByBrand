@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+	<adminhtml_mgsys_extension>
+		<reference name="head">
+			<action method="addJs"><script>magentogarden/jquery-1.6.4.min.js</script></action>
+			<action method="addJs"><script>magentogarden/global.js</script></action>
+		</reference>
+		<reference name="content">
+			<block type="mgsys/Adminhtml_Extension" name="mgsys.extension" template="mgsys/extensions.phtml"/>
+		</reference>
+	</adminhtml_mgsys_extension>
+</layout>

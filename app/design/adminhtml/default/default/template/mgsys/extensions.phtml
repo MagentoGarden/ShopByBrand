@@ -1,0 +1,81 @@
+<?php
+$_extensions = $this->getMgExtensions();
+?>
+<style>
+	.content-header h3, .entry-edit { display: none; }
+	.content-header h3.active, .active { display: block; }
+</style>
+
+<script type="text/javascript">
+	jQuery(function() {
+		var tabs = jQuery('#page_tab li a'); 
+		var title = jQuery('.content-header h3');
+		var entry = jQuery('.entry-edit');
+		jQuery('#page_tab li a').click(function() {
+			var idx = jQuery('#page_tab li a').index(this);
+			tabs.removeClass('active').eq(idx).addClass('active');
+			title.removeClass('active').eq(idx).addClass('active');
+			entry.removeClass('active').eq(idx).addClass('active');
+		});
+	});
+</script>
+
+<div id="page:main-container">
+	<div class="columns">
+		<div id="page:left" class="side-col">
+			<h3>Magento Garden</h3>
+			<ul id="page_tab" class="tabs">
+				<li>
+					<a href="#" class="tab-item-link active"><span>Manage Extension</span></a>
+				</li>
+				<li>
+					<a href="#" class="tab-item-link"><span>Contact us</span></a>
+				</li>
+			</ul>
+		</div>
+		<div id="content" class="main-col">
+			<div class="main-col-inner">
+				<div id="messages"></div>
+				<div class="content-header">
+					<h3 class="active">Manage Extensions</h3>
+					<h3>Contact us</h3>
+				</div>
+				<div class="entry-edit active">
+					<div class="grid">
+						<div class="hor-scroll">
+							<table class="data" cellpadding="0" cellspacing="0">
+								<thead>
+									<tr class="headings">
+										<th>Name</th>
+										<th>Version</th>
+										<th>Latest Version</th>
+										<th class="last">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php $_count = 0;?>
+									<?php foreach ($_extensions as $_extension): ?>
+									<tr class="<?php if ($_count % 2 == 0) echo "even"; ?>">
+										<td><?php echo $_extension['name']?></td>
+										<td><?php echo $_extension['ver']?></td>
+										<td><?php echo $_extension['latest']?></td>
+										<td class="last"><a target="_blank" href="<?php echo $_extension['url'] ?>">View</a></td>
+									</tr>
+									<?php $_count ++; ?>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="entry-edit">
+					<iframe src="<?php echo $this->getContactUrl(); ?>" width="100%" height="400px" style="border: none;">
+						
+					</iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

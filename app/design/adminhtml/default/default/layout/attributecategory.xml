@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_mgac_manage>
+    	<reference name="head">
+			<action method="addJs"><script>magentogarden/jquery-1.6.4.min.js</script></action>
+			<action method="addJs"><script>magentogarden/global.js</script></action>
+			<action method="addJs"><script>magentogarden/ajaxupload.3.5.js</script></action>
+			<action method="addItem"><type>skin_js</type><name>magentogarden/js/jquery.loadmask.js</name><params/></action>
+			<action method="addCss"><stylesheet>magentogarden/css/jquery.loadmask.css</stylesheet></action>
+			<action method="addCss"><stylesheet>magentogarden/attributecategory/css/acback.css</stylesheet></action>
+		</reference>
+        <reference name="content">
+            <block type="attributecategory/adminhtml_manage" name="attributecategory.manage" template="attributecategory/manage.phtml"/>
+        </reference>
+    </adminhtml_mgac_manage>
+</layout>

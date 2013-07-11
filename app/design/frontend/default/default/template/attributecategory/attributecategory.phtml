@@ -1,0 +1,145 @@
+<?php
+/**
+ * MagentoGarden
+ *
+ * @category    design
+ * @package     magentogarden_attributecategory
+ * @copyright   Copyright (c) 2012 MagentoGarden Inc. (http://www.magentogarden.com)
+ * @version		1.0
+ * @author		MagentoGarden (coder@magentogarden.com)
+ */
+?>
+
+<?php $_attribute_id = $this->getAttributeId(); ?>
+<?php $_options = $this->getOptions(); ?>
+<?php $_brand_image_width = $this->getAttributeImageWidth(); ?>
+<?php $_brand_image_height = $this->getAttributeImageHeight(); ?>
+
+<script type="text/javascript">
+	jQuery(function() {
+		jQuery('.mg-top').click(function() {
+			jQuery('html, body').animate({ scrollTop: 0 });
+			return false;
+		});
+
+		jQuery('.label-alpha').click(function() {
+			var label = '.mg-option-ctn-' + jQuery(this).html();
+			var top = jQuery(label).position().top;
+			jQuery('html, body').animate({ scrollTop: top });
+			return false;			
+		});
+
+		jQuery('.label-num').click(function() {
+			var top = jQuery('.mg-option-ctn-num').position().top;
+			jQuery('html, body').animate({ scrollTop: top });
+			return false;
+		});
+
+		jQuery('.label-other').click(function() {
+			var top = jQuery('.mg-option-ctn-other').position().top;
+			jQuery('html, body').animate({ scrollTop: top });
+			return false;
+		});
+	});
+</script>
+
+<div class="mg-cnt">
+	<?php if ($this->hasFeaturedAttribute()): ?>
+	<script type="text/javascript">
+		jQuery(function() {
+			var width = jQuery('.mg-featured-options li').length * 140; 
+			jQuery('.mg-featured-options .scroller ul').css('width', width+'px');
+			$jScroller.add(".mg-featured-options",".mg-featured-options ul","left",1.5,1);
+			$jScroller.config.refresh = <?php echo $this->get_rolling_interval(); ?>;
+			$jScroller.start();
+		});
+	</script>
+	<div class="mg-featured-options">
+		<h1><?php echo $this->__('Featured Brands'); ?></h1>
+		
+		<div class="mg-clear scroller">
+			<ul>
+				<?php foreach ($_options as $_option_set): ?>
+				<?php foreach ($_option_set as $_option):?>
+				<?php if ($_option['image'] != NULL && isset($_option['enabled'])):?>
+				<li><a href="<?php echo $_option['url'];?>"><img width="<?php $_brand_image_width; ?>px" height="<?php $_brand_image_height; ?>px" src="<?php echo $_option['image']; ?>"/></a></li>
+				<?php endif; ?>
+				<?php endforeach;?>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	</div>
+	<div class="mg-clear"></div>
+	<?php endif; ?>
+	
+	<div class="mg-options-shortcut">
+		<h1><?php echo $this->__('All Brands'); ?></h1>
+		<ul>
+			<?php foreach (range('A','Z') as $i): ?>
+				<?php if (isset($_options[$i])): ?>
+					<li><a class="label-alpha" href="#"><?php echo $i; ?></a></li>
+				<?php else:?>
+					<li class="no-link"><?php echo $i; ?></li>
+				<?php endif; ?>
+				|
+			<?php endforeach; ?>
+			<?php if (isset($_options['number'])):?>
+				<li><a class="label-num" href="#">0-9</a></li>
+			<?php else:?>
+				<li class="no-link">0-9</li>
+			<?php endif; ?>
+			|
+			<?php if (isset($_options['other'])):?>
+				<li><a class="label-other" href="#">other</a></li>
+			<?php else: ?>
+				<li class="no-link">other</li>
+			<?php endif; ?>
+		</ul>
+	</div>
+	
+	<?php $_count = 0; ?>
+	<div class="mg-options-ctn">
+		<?php foreach (range('A','Z') as $i): ?>
+		<?php if (isset($_options[$i])): ?>
+		<?php $_count ++; ?>
+		<div class="mg-option-ctn mg-option-ctn-<?php echo $i; ?> <?php if ($_count % 2) echo "even"?>">
+			<h1 class="mg-clear"><?php echo $i; ?></h1>
+			<span class="mg-option">
+			<?php foreach ($_options[$i] as $_option):?>
+				<a href="<?php echo $_option['url']?>"><?php echo $_option['label']?></a>
+			<?php endforeach?>
+			</span>
+			<span class="mg-top"><a href="#"><?php echo $this->__('Back to Top')?></a></span>
+		</div>
+		
+		<?php endif?>
+		<?php endforeach; ?>
+		
+		<?php if (isset($_options['number'])):?>
+		<?php $_count ++;?>
+		<div class="mg-option-ctn mg-option-ctn-num <?php if ($_count % 2) echo "even"; ?>">
+			<h1>0-9</h1>
+			<span class="mg-option">
+			<?php foreach ($_options['number'] as $_option):?>
+				<a href="<?php echo $_option['url']?>"><?php echo $_option['label']?></a>
+			<?php endforeach?>
+			</span>
+			<span class="mg-top"><a href="#"><?php echo $this->__('Back to Top')?></a></span>
+		</div>
+		<?php endif?>
+		
+		<?php if (isset($_options['other'])):?>
+		<?php $_count ++; ?>
+		<div class="mg-option-ctn mg-option-ctn-other <?php if ($_count % 2) echo "even"; ?>">
+			<h1>other</h1>
+			<span class="mg-option">
+			<?php foreach ($_options['other'] as $_option):?>
+				<a href="<?php echo $_option['url']?>"><?php echo $_option['label']?></a>
+			<?php endforeach?>
+			</span>
+			<span class="mg-top"><a href="#"><?php echo $this->__('Back to Top')?></a></span>
+		</div>
+		<?php endif?>
+	</div>
+	<div class="mg-clear"></div>
+</div>

@@ -1,0 +1,24 @@
+@CHARSET "GB18030";
+
+.mg-cnt { width: 875px; margin: 40px 0; }
+.mg-cnt a { text-decoration: none; }
+.mg-cnt a:hover { text-decoration: underline; }
+.mg-featured-options { float: left; width: 875px; }
+.mg-featured-options * { float: left; }
+.mg-featured-options .scroller { height: 90px; position: relative; }
+.mg-featured-options ul li { display: inline; padding: 5px 0 5px 5px; }
+.mg-featured-options ul li a {  border: 1px solid #ddd; border-radius: 5px; box-shadow: 2px 2px 5px #888; }
+.mg-featured-options ul li a:hover { border: 1px solid #999; }
+.mg-featured-options ul li img { width: 130px;  height: 75px; }
+.mg-options-shortcut { float: left; width: 100%; padding: 5px; }
+.mg-options-shortcut h1 { background: url("../img/bg-subt.jpg") no-repeat; color: #3262ac; font-size: 19px; font-weight: bold; height: 39px; width: 830px; padding: 6px 20px; margin: 0; }
+.mg-options-shortcut ul li { display: inline; font-size: 15px; padding: 5px; }
+.mg-options-ctn { width: 100%; }
+.mg-options-ctn * { float: left; }
+.mg-options-ctn .even { background-color: #f2f2f2; }
+.mg-option-ctn { width: 835px; padding: 20px 20px 0; border-bottom: 1px dashed #ddd; }
+.mg-options-ctn .mg-option { width: 100%; font-size: 15px; padding: 5px 0 20px 20px; }
+.mg-options-ctn .mg-option a { display: block; width: 25%; }
+.mg-option-ctn .mg-top { float: right; background-color: #666; display: block; padding: 1px 10px; -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px;}
+.mg-option-ctn .mg-top a { color: #fff; }
+.mg-clear { clear: both; }

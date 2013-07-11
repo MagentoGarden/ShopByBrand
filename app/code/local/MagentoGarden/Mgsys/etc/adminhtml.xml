@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+	<menu>
+		<magentogarden translate="title">
+			<title>MagentoGarden</title>
+			<sort_order>200</sort_order>
+			<children>
+				<mgsys translate="title" module="mgsys">
+					<title>Configuration</title>
+					<sort_order>200</sort_order>
+					<children>
+						<mgextension translate="title" module="mgsys">
+							<title>Manage Extensions</title>
+							<sort_order>10</sort_order>
+							<action>adminhtml/mgsys/extension</action>
+						</mgextension>
+					</children>
+				</mgsys>
+			</children>
+		</magentogarden>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<magentogarden translate="title" module="mgsys">
+						<title>MagentoGarden</title>
+						<sort_order>100</sort_order>
+						<children>
+							<mgsys translate="title">
+								<title>MagentoGarden System</title>
+								<children>
+									<mgextension translate="title">
+										<title>Manage Extensions</title>
+									</mgextension>
+								</children>
+							</mgsys>
+						</children>
+					</magentogarden>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

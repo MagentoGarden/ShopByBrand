@@ -1,0 +1,16 @@
+.mg-container .mg-title { border-bottom: 4px solid #dfdfdf; margin-bottom: 18px; padding-bottom: 0.25em; }
+.mg-container .mg-title h3 { color: #eb5e00; float: left; font-size: 1.25em; line-height: 1.2em; margin: 0.3em 0.5em 0 0; width: 100%; float: none;}
+.mg-container .mg-attr-item { font-size: 14px; font-weight: bold; }
+.mg-container .mg-attr-item-des { font-size: 12px; text-align: left; padding-left: 25px; }
+.mg-container .mg-attr-item-des label { font-weight: bold; }
+
+.mg-content { width: 600px; }
+.mg-content h1 { font-size: 14px; }
+.mg-content h2 { font-size: 13px; }
+.mg-content .mg-as-desc { float: left; clear: both; }
+.mg-content .mg-as-desc textarea { width: 400px; }
+.mg-content ul li { float: left; width: 120px; text-align: center; }
+.mg-content img { width: 100px; height: 100px; border: 1px solid #eee; }
+.mg-content ul li h2 { font-size: 14px; }
+.mg-content .mg-option { float: left; padding: 10px; }
+.mg-content .clear { clear: both; } 

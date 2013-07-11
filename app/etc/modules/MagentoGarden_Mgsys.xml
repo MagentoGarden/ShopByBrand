@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MagentoGarden_Mgsys>
+            <active>true</active>
+            <codePool>local</codePool>
+        </MagentoGarden_Mgsys>
+    </modules>
+</config> 
